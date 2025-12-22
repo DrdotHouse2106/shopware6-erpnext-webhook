@@ -13,7 +13,7 @@ A generic webhook connector plugin for Shopware 6 with presets for ERPNext, n8n,
 
 ## Requirements
 
-- Shopware 6.5.x or 6.6.x
+- Shopware 6.5.x, 6.6.x, or 6.7.x
 - PHP 8.1 or higher
 
 ## Installation
@@ -21,7 +21,7 @@ A generic webhook connector plugin for Shopware 6 with presets for ERPNext, n8n,
 ### Via Composer (recommended)
 
 ```bash
-composer require kreckler/shopware-webhook-connector
+composer require tubaapollo/shopware-webhook-connector
 bin/console plugin:refresh
 bin/console plugin:install --activate ShopwareWebhookConnector
 bin/console cache:clear
@@ -29,7 +29,7 @@ bin/console cache:clear
 
 ### Manual Installation
 
-1. Download the latest release from [GitHub Releases](https://github.com/kreckler/shopware6-erpnext-webhook/releases)
+1. Download the latest release from [GitHub Releases](https://github.com/TubaApollo/shopware6-erpnext-webhook/releases)
 2. Extract to `custom/plugins/ShopwareWebhookConnector`
 3. Run:
    ```bash
@@ -181,7 +181,7 @@ The plugin uses exponential backoff:
 
 ```bash
 # Clone the repository
-git clone https://github.com/kreckler/shopware6-erpnext-webhook.git
+git clone https://github.com/TubaApollo/shopware6-erpnext-webhook.git
 
 # Install in Shopware
 ln -s /path/to/shopware6-erpnext-webhook /path/to/shopware/custom/plugins/ShopwareWebhookConnector
@@ -201,5 +201,5 @@ Pull requests are welcome! Please ensure your code follows PSR-12 coding standar
 
 ## Support
 
-- [GitHub Issues](https://github.com/kreckler/shopware6-erpnext-webhook/issues)
+- [GitHub Issues](https://github.com/TubaApollo/shopware6-erpnext-webhook/issues)
 - [Shopware Community](https://community.shopware.com/)

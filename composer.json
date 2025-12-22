@@ -1,13 +1,13 @@
 {
-    "name": "kreckler/shopware-webhook-connector",
+    "name": "tubaapollo/shopware-webhook-connector",
     "description": "Generic webhook connector for Shopware 6 with presets for ERPNext, n8n, and custom endpoints",
-    "version": "1.0.0",
+    "version": "1.0.1",
     "type": "shopware-platform-plugin",
     "license": "MIT",
     "authors": [
         {
-            "name": "Kreckler",
-            "homepage": "https://github.com/kreckler"
+            "name": "TubaApollo",
+            "homepage": "https://github.com/TubaApollo"
         }
     ],
     "require": {
@@ -29,12 +29,12 @@
             "en-GB": "Generic webhook connector with presets for ERPNext, n8n, and custom endpoints"
         },
         "manufacturerLink": {
-            "de-DE": "https://github.com/kreckler",
-            "en-GB": "https://github.com/kreckler"
+            "de-DE": "https://github.com/TubaApollo",
+            "en-GB": "https://github.com/TubaApollo"
         },
         "supportLink": {
-            "de-DE": "https://github.com/kreckler/shopware6-erpnext-webhook/issues",
-            "en-GB": "https://github.com/kreckler/shopware6-erpnext-webhook/issues"
+            "de-DE": "https://github.com/TubaApollo/shopware6-erpnext-webhook/issues",
+            "en-GB": "https://github.com/TubaApollo/shopware6-erpnext-webhook/issues"
         }
     }
 }
