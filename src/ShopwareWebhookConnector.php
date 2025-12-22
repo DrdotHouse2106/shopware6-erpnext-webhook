@@ -17,21 +17,22 @@ class ShopwareWebhookConnector extends Plugin
     {
         parent::install($installContext);
 
-        $this->getCustomFieldInstaller()->install($installContext->getContext());
+        // Custom fields are installed on first activation, not during install
+        // This avoids dependency issues during plugin installation
     }
 
     public function update(UpdateContext $updateContext): void
     {
         parent::update($updateContext);
 
-        $this->getCustomFieldInstaller()->update($updateContext->getContext());
+        $this->getCustomFieldInstaller()?->update($updateContext->getContext());
     }
 
     public function activate(ActivateContext $activateContext): void
     {
         parent::activate($activateContext);
 
-        $this->getCustomFieldInstaller()->update($activateContext->getContext());
+        $this->getCustomFieldInstaller()?->install($activateContext->getContext());
     }
 
     public function uninstall(UninstallContext $uninstallContext): void
@@ -39,15 +40,23 @@ class ShopwareWebhookConnector extends Plugin
         parent::uninstall($uninstallContext);
 
         if (!$uninstallContext->keepUserData()) {
-            $this->getCustomFieldInstaller()->uninstall($uninstallContext->getContext());
+            $this->getCustomFieldInstaller()?->uninstall($uninstallContext->getContext());
         }
     }
 
-    private function getCustomFieldInstaller(): CustomFieldInstaller
+    private function getCustomFieldInstaller(): ?CustomFieldInstaller
     {
-        /** @var CustomFieldInstaller $installer */
-        $installer = $this->container->get(CustomFieldInstaller::class);
+        if ($this->container === null) {
+            return null;
+        }
 
-        return $installer;
+        try {
+            /** @var \Shopware\Core\Framework\DataAbstractionLayer\EntityRepository $customFieldSetRepository */
+            $customFieldSetRepository = $this->container->get('custom_field_set.repository');
+
+            return new CustomFieldInstaller($customFieldSetRepository);
+        } catch (\Exception $e) {
+            return null;
+        }
     }
 }
