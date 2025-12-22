@@ -1,0 +1,72 @@
+{
+    "shopware-webhook-connector": {
+        "config": {
+            "preset": {
+                "label": "Preset",
+                "helpText": "Wähle ein Preset für das Webhook-Format"
+            },
+            "webhookUrl": {
+                "label": "Webhook-URL",
+                "helpText": "Die URL, an die Webhooks gesendet werden"
+            },
+            "webhookSecret": {
+                "label": "Webhook-Secret",
+                "helpText": "Geheimer Schlüssel für HMAC-SHA256 Signatur (leer lassen um Signierung zu deaktivieren)"
+            },
+            "eventOrderPlaced": {
+                "label": "Bestellung erstellt",
+                "helpText": "Webhook senden, wenn eine neue Bestellung aufgegeben wird"
+            },
+            "eventOrderUpdated": {
+                "label": "Bestellung aktualisiert",
+                "helpText": "Webhook senden, wenn eine Bestellung aktualisiert wird"
+            },
+            "eventOrderStateChanged": {
+                "label": "Bestellstatus geändert",
+                "helpText": "Webhook senden, wenn der Bestellstatus geändert wird"
+            },
+            "eventTransactionStateChanged": {
+                "label": "Zahlungsstatus geändert",
+                "helpText": "Webhook senden, wenn der Zahlungsstatus geändert wird"
+            },
+            "eventCustomerWritten": {
+                "label": "Kunde aktualisiert",
+                "helpText": "Webhook senden, wenn Kundendaten erstellt oder aktualisiert werden"
+            },
+            "enableCheckoutCustomFields": {
+                "label": "Checkout Custom Fields aktivieren",
+                "helpText": "Custom Fields zu Bestellungen hinzufügen: Bestellnummer, Tel. Avis, Hebebühne, Rechnungs-E-Mail"
+            },
+            "retryCount": {
+                "label": "Anzahl Wiederholungen",
+                "helpText": "Anzahl der Wiederholungsversuche bei Fehler (0 = keine Wiederholungen)"
+            },
+            "retryDelay": {
+                "label": "Wiederholungsverzögerung (ms)",
+                "helpText": "Anfängliche Verzögerung zwischen Wiederholungen in Millisekunden"
+            },
+            "timeout": {
+                "label": "Timeout (Sekunden)",
+                "helpText": "Request-Timeout in Sekunden"
+            }
+        },
+        "customFields": {
+            "poNumber": {
+                "label": "Ihre Bestellnummer / Kommission",
+                "helpText": "Optional: Interne Bestellnummer des Kunden"
+            },
+            "telAvis": {
+                "label": "Tel. Avis gewünscht (+7,50 €)",
+                "helpText": "Wir rufen Sie vor der Zustellung an"
+            },
+            "forkliftRequired": {
+                "label": "Hebebühne erforderlich",
+                "helpText": "Bei schweren/sperrigen Artikeln"
+            },
+            "invoiceEmail": {
+                "label": "Abweichende Rechnungs-E-Mail",
+                "helpText": "Falls Rechnungen an eine andere Adresse gehen sollen"
+            }
+        }
+    }
+}

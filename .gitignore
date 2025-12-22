@@ -1,0 +1,25 @@
+# IDE
+.idea/
+.vscode/
+*.swp
+*.swo
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Composer
+/vendor/
+composer.lock
+
+# Build artifacts
+/dist/
+*.zip
+*.tar.gz
+
+# Test
+/coverage/
+.phpunit.result.cache
+
+# Logs
+*.log

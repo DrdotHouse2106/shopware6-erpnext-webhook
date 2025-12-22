@@ -1,0 +1,72 @@
+{
+    "shopware-webhook-connector": {
+        "config": {
+            "preset": {
+                "label": "Preset",
+                "helpText": "Select a preset for the webhook format"
+            },
+            "webhookUrl": {
+                "label": "Webhook URL",
+                "helpText": "The URL to send webhooks to"
+            },
+            "webhookSecret": {
+                "label": "Webhook Secret",
+                "helpText": "Secret key for HMAC-SHA256 signature (leave empty to disable signing)"
+            },
+            "eventOrderPlaced": {
+                "label": "Order Placed",
+                "helpText": "Send webhook when a new order is placed"
+            },
+            "eventOrderUpdated": {
+                "label": "Order Updated",
+                "helpText": "Send webhook when an order is updated"
+            },
+            "eventOrderStateChanged": {
+                "label": "Order State Changed",
+                "helpText": "Send webhook when order state changes"
+            },
+            "eventTransactionStateChanged": {
+                "label": "Payment State Changed",
+                "helpText": "Send webhook when payment transaction state changes"
+            },
+            "eventCustomerWritten": {
+                "label": "Customer Written",
+                "helpText": "Send webhook when customer data is created or updated"
+            },
+            "enableCheckoutCustomFields": {
+                "label": "Enable Checkout Custom Fields",
+                "helpText": "Add custom fields to orders: PO Number, Tel. Avis, Forklift Required, Invoice Email"
+            },
+            "retryCount": {
+                "label": "Retry Count",
+                "helpText": "Number of retry attempts on failure (0 = no retries)"
+            },
+            "retryDelay": {
+                "label": "Retry Delay (ms)",
+                "helpText": "Initial delay between retries in milliseconds"
+            },
+            "timeout": {
+                "label": "Timeout (seconds)",
+                "helpText": "Request timeout in seconds"
+            }
+        },
+        "customFields": {
+            "poNumber": {
+                "label": "Your Order Reference / Commission",
+                "helpText": "Optional: Customer's internal order reference"
+            },
+            "telAvis": {
+                "label": "Telephone notification required (+7.50 €)",
+                "helpText": "We will call you before delivery"
+            },
+            "forkliftRequired": {
+                "label": "Forklift required",
+                "helpText": "For heavy/bulky items"
+            },
+            "invoiceEmail": {
+                "label": "Alternative Invoice Email",
+                "helpText": "If invoices should be sent to a different address"
+            }
+        }
+    }
+}

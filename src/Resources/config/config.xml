@@ -1,0 +1,145 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="https://raw.githubusercontent.com/shopware/platform/trunk/src/Core/System/SystemConfig/Schema/config.xsd">
+    <card>
+        <title>Webhook Configuration</title>
+        <title lang="de-DE">Webhook-Konfiguration</title>
+
+        <input-field type="single-select">
+            <name>preset</name>
+            <label>Preset</label>
+            <label lang="de-DE">Preset</label>
+            <helpText>Select a preset for the webhook format</helpText>
+            <helpText lang="de-DE">Wähle ein Preset für das Webhook-Format</helpText>
+            <defaultValue>erpnext</defaultValue>
+            <options>
+                <option>
+                    <id>erpnext</id>
+                    <name>ERPNext</name>
+                </option>
+                <option>
+                    <id>n8n</id>
+                    <name>n8n</name>
+                </option>
+                <option>
+                    <id>custom</id>
+                    <name>Custom</name>
+                </option>
+            </options>
+        </input-field>
+
+        <input-field type="url">
+            <name>webhookUrl</name>
+            <label>Webhook URL</label>
+            <label lang="de-DE">Webhook-URL</label>
+            <placeholder>https://your-erp.com/api/method/webhook_handler</placeholder>
+            <helpText>The URL to send webhooks to</helpText>
+            <helpText lang="de-DE">Die URL, an die Webhooks gesendet werden</helpText>
+            <required>true</required>
+        </input-field>
+
+        <input-field type="password">
+            <name>webhookSecret</name>
+            <label>Webhook Secret</label>
+            <label lang="de-DE">Webhook-Secret</label>
+            <helpText>Secret key for HMAC-SHA256 signature (leave empty to disable signing)</helpText>
+            <helpText lang="de-DE">Geheimer Schlüssel für HMAC-SHA256 Signatur (leer lassen um Signierung zu deaktivieren)</helpText>
+        </input-field>
+    </card>
+
+    <card>
+        <title>Enabled Events</title>
+        <title lang="de-DE">Aktivierte Events</title>
+
+        <input-field type="bool">
+            <name>eventOrderPlaced</name>
+            <label>Order Placed</label>
+            <label lang="de-DE">Bestellung erstellt</label>
+            <helpText>Send webhook when a new order is placed</helpText>
+            <helpText lang="de-DE">Webhook senden, wenn eine neue Bestellung aufgegeben wird</helpText>
+            <defaultValue>true</defaultValue>
+        </input-field>
+
+        <input-field type="bool">
+            <name>eventOrderUpdated</name>
+            <label>Order Updated</label>
+            <label lang="de-DE">Bestellung aktualisiert</label>
+            <helpText>Send webhook when an order is updated (e.g., custom fields changed)</helpText>
+            <helpText lang="de-DE">Webhook senden, wenn eine Bestellung aktualisiert wird (z.B. Custom Fields geändert)</helpText>
+            <defaultValue>true</defaultValue>
+        </input-field>
+
+        <input-field type="bool">
+            <name>eventOrderStateChanged</name>
+            <label>Order State Changed</label>
+            <label lang="de-DE">Bestellstatus geändert</label>
+            <helpText>Send webhook when order state changes</helpText>
+            <helpText lang="de-DE">Webhook senden, wenn der Bestellstatus geändert wird</helpText>
+            <defaultValue>true</defaultValue>
+        </input-field>
+
+        <input-field type="bool">
+            <name>eventTransactionStateChanged</name>
+            <label>Payment State Changed</label>
+            <label lang="de-DE">Zahlungsstatus geändert</label>
+            <helpText>Send webhook when payment transaction state changes (e.g., PayPal confirmed)</helpText>
+            <helpText lang="de-DE">Webhook senden, wenn der Zahlungsstatus geändert wird (z.B. PayPal bestätigt)</helpText>
+            <defaultValue>true</defaultValue>
+        </input-field>
+
+        <input-field type="bool">
+            <name>eventCustomerWritten</name>
+            <label>Customer Written</label>
+            <label lang="de-DE">Kunde aktualisiert</label>
+            <helpText>Send webhook when customer data is created or updated</helpText>
+            <helpText lang="de-DE">Webhook senden, wenn Kundendaten erstellt oder aktualisiert werden</helpText>
+            <defaultValue>true</defaultValue>
+        </input-field>
+    </card>
+
+    <card>
+        <title>Checkout Custom Fields</title>
+        <title lang="de-DE">Checkout Custom Fields</title>
+
+        <input-field type="bool">
+            <name>enableCheckoutCustomFields</name>
+            <label>Enable Checkout Custom Fields</label>
+            <label lang="de-DE">Checkout Custom Fields aktivieren</label>
+            <helpText>Add custom fields to orders: PO Number, Tel. Avis, Forklift Required, Invoice Email</helpText>
+            <helpText lang="de-DE">Custom Fields zu Bestellungen hinzufügen: Bestellnummer, Tel. Avis, Hebebühne, Rechnungs-E-Mail</helpText>
+            <defaultValue>true</defaultValue>
+        </input-field>
+    </card>
+
+    <card>
+        <title>Advanced Settings</title>
+        <title lang="de-DE">Erweiterte Einstellungen</title>
+
+        <input-field type="int">
+            <name>retryCount</name>
+            <label>Retry Count</label>
+            <label lang="de-DE">Anzahl Wiederholungen</label>
+            <helpText>Number of retry attempts on failure (0 = no retries)</helpText>
+            <helpText lang="de-DE">Anzahl der Wiederholungsversuche bei Fehler (0 = keine Wiederholungen)</helpText>
+            <defaultValue>3</defaultValue>
+        </input-field>
+
+        <input-field type="int">
+            <name>retryDelay</name>
+            <label>Retry Delay (ms)</label>
+            <label lang="de-DE">Wiederholungsverzögerung (ms)</label>
+            <helpText>Initial delay between retries in milliseconds (exponential backoff applied)</helpText>
+            <helpText lang="de-DE">Anfängliche Verzögerung zwischen Wiederholungen in Millisekunden (exponentielle Verzögerung wird angewendet)</helpText>
+            <defaultValue>1000</defaultValue>
+        </input-field>
+
+        <input-field type="int">
+            <name>timeout</name>
+            <label>Timeout (seconds)</label>
+            <label lang="de-DE">Timeout (Sekunden)</label>
+            <helpText>Request timeout in seconds</helpText>
+            <helpText lang="de-DE">Request-Timeout in Sekunden</helpText>
+            <defaultValue>30</defaultValue>
+        </input-field>
+    </card>
+</config>

@@ -1,0 +1,41 @@
+<?xml version="1.0" ?>
+<container xmlns="http://symfony.com/schema/dic/services"
+           xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+           xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd">
+
+    <services>
+        <!-- Services -->
+        <service id="ShopwareWebhookConnector\Service\WebhookService">
+            <argument type="service" id="http_client"/>
+            <argument type="service" id="Shopware\Core\System\SystemConfig\SystemConfigService"/>
+            <argument type="service" id="logger"/>
+        </service>
+
+        <!-- Installer -->
+        <service id="ShopwareWebhookConnector\Installer\CustomFieldInstaller" public="true">
+            <argument type="service" id="custom_field_set.repository"/>
+            <argument type="service" id="Shopware\Core\System\SystemConfig\SystemConfigService"/>
+        </service>
+
+        <!-- Subscribers -->
+        <service id="ShopwareWebhookConnector\Subscriber\OrderWebhookSubscriber">
+            <argument type="service" id="ShopwareWebhookConnector\Service\WebhookService"/>
+            <argument type="service" id="order.repository"/>
+            <argument type="service" id="Shopware\Core\System\SystemConfig\SystemConfigService"/>
+            <argument type="service" id="logger"/>
+            <tag name="kernel.event_subscriber"/>
+        </service>
+
+        <service id="ShopwareWebhookConnector\Subscriber\TransactionWebhookSubscriber">
+            <argument type="service" id="ShopwareWebhookConnector\Service\WebhookService"/>
+            <argument type="service" id="order_transaction.repository"/>
+            <argument type="service" id="logger"/>
+            <tag name="kernel.event_subscriber"/>
+        </service>
+
+        <service id="ShopwareWebhookConnector\Subscriber\CustomerWebhookSubscriber">
+            <argument type="service" id="ShopwareWebhookConnector\Service\WebhookService"/>
+            <tag name="kernel.event_subscriber"/>
+        </service>
+    </services>
+</container>

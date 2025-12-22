@@ -1,0 +1,40 @@
+{
+    "name": "kreckler/shopware-webhook-connector",
+    "description": "Generic webhook connector for Shopware 6 with presets for ERPNext, n8n, and custom endpoints",
+    "version": "1.0.0",
+    "type": "shopware-platform-plugin",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Kreckler",
+            "homepage": "https://github.com/kreckler"
+        }
+    ],
+    "require": {
+        "shopware/core": "~6.5.0 || ~6.6.0"
+    },
+    "autoload": {
+        "psr-4": {
+            "ShopwareWebhookConnector\\": "src/"
+        }
+    },
+    "extra": {
+        "shopware-plugin-class": "ShopwareWebhookConnector\\ShopwareWebhookConnector",
+        "label": {
+            "de-DE": "Webhook Connector",
+            "en-GB": "Webhook Connector"
+        },
+        "description": {
+            "de-DE": "Generischer Webhook Connector mit Presets für ERPNext, n8n und benutzerdefinierte Endpoints",
+            "en-GB": "Generic webhook connector with presets for ERPNext, n8n, and custom endpoints"
+        },
+        "manufacturerLink": {
+            "de-DE": "https://github.com/kreckler",
+            "en-GB": "https://github.com/kreckler"
+        },
+        "supportLink": {
+            "de-DE": "https://github.com/kreckler/shopware6-erpnext-webhook/issues",
+            "en-GB": "https://github.com/kreckler/shopware6-erpnext-webhook/issues"
+        }
+    }
+}
