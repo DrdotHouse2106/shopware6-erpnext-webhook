@@ -15,7 +15,9 @@ namespace ShopwareWebhookConnector\Preset;
  *   "source": "shopware6"
  * }
  *
- * Signature: HMAC-SHA256 in X-Shopware-Signature header
+ * Signature: HMAC-SHA256 in X-Shopware-Signature header.
+ * Ohne konfiguriertes Secret wird KEIN Signatur-Header gesendet – eine Signatur
+ * mit leerem Schlüssel wäre wertlos und würde dem Empfänger Sicherheit vortäuschen.
  */
 class ERPNextPreset implements PresetInterface
 {
@@ -41,6 +43,10 @@ class ERPNextPreset implements PresetInterface
 
     public function getHeaders(string $payload, string $secret): array
     {
+        if ($secret === '') {
+            return [];
+        }
+
         $signature = hash_hmac('sha256', $payload, $secret);
 
         return [

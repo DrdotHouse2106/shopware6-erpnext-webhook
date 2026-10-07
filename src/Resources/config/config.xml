@@ -33,8 +33,8 @@
             <label>Webhook URL</label>
             <label lang="de-DE">Webhook-URL</label>
             <placeholder>https://your-erp.com/api/method/webhook_handler</placeholder>
-            <helpText>The URL to send webhooks to</helpText>
-            <helpText lang="de-DE">Die URL, an die Webhooks gesendet werden</helpText>
+            <helpText>The URL to send webhooks to. Only https:// is accepted (plain http only for localhost during development).</helpText>
+            <helpText lang="de-DE">Die URL, an die Webhooks gesendet werden. Es wird nur https:// akzeptiert (http nur für localhost in der Entwicklung).</helpText>
             <required>true</required>
         </input-field>
 
@@ -42,8 +42,8 @@
             <name>webhookSecret</name>
             <label>Webhook Secret</label>
             <label lang="de-DE">Webhook-Secret</label>
-            <helpText>Secret key for HMAC-SHA256 signature (leave empty to disable signing)</helpText>
-            <helpText lang="de-DE">Geheimer Schlüssel für HMAC-SHA256 Signatur (leer lassen um Signierung zu deaktivieren)</helpText>
+            <helpText>Secret key for HMAC-SHA256 signature. Strongly recommended: without a secret no signature header is sent and the receiver cannot verify the sender.</helpText>
+            <helpText lang="de-DE">Geheimer Schlüssel für die HMAC-SHA256-Signatur. Dringend empfohlen: Ohne Secret wird kein Signatur-Header gesendet und der Empfänger kann den Absender nicht prüfen.</helpText>
         </input-field>
     </card>
 
@@ -115,12 +115,21 @@
         <title>Advanced Settings</title>
         <title lang="de-DE">Erweiterte Einstellungen</title>
 
+        <input-field type="bool">
+            <name>asyncDelivery</name>
+            <label>Send asynchronously (message queue)</label>
+            <label lang="de-DE">Asynchron senden (Message Queue)</label>
+            <helpText>Recommended. Webhooks are queued and delivered by the Shopware message worker, so checkout and login never wait for the target system. Requires a running worker (admin worker or messenger:consume). If disabled, exactly one delivery attempt is made synchronously without retries.</helpText>
+            <helpText lang="de-DE">Empfohlen. Webhooks werden in die Queue gestellt und vom Shopware-Worker zugestellt, Checkout und Login warten nie auf das Zielsystem. Benötigt einen laufenden Worker (Admin-Worker oder messenger:consume). Deaktiviert: genau ein synchroner Zustellversuch ohne Wiederholungen.</helpText>
+            <defaultValue>true</defaultValue>
+        </input-field>
+
         <input-field type="int">
             <name>retryCount</name>
             <label>Retry Count</label>
             <label lang="de-DE">Anzahl Wiederholungen</label>
-            <helpText>Number of retry attempts on failure (0 = no retries)</helpText>
-            <helpText lang="de-DE">Anzahl der Wiederholungsversuche bei Fehler (0 = keine Wiederholungen)</helpText>
+            <helpText>Number of retry attempts on failure (0 = no retries, max. 10). Only used for asynchronous delivery.</helpText>
+            <helpText lang="de-DE">Anzahl der Wiederholungsversuche bei Fehler (0 = keine Wiederholungen, max. 10). Nur bei asynchronem Versand.</helpText>
             <defaultValue>3</defaultValue>
         </input-field>
 
@@ -137,8 +146,8 @@
             <name>timeout</name>
             <label>Timeout (seconds)</label>
             <label lang="de-DE">Timeout (Sekunden)</label>
-            <helpText>Request timeout in seconds</helpText>
-            <helpText lang="de-DE">Request-Timeout in Sekunden</helpText>
+            <helpText>Request timeout in seconds (1–120)</helpText>
+            <helpText lang="de-DE">Request-Timeout in Sekunden (1–120)</helpText>
             <defaultValue>30</defaultValue>
         </input-field>
     </card>

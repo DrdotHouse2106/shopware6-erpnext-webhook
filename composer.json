@@ -1,7 +1,7 @@
 {
     "name": "tubaapollo/shopware-webhook-connector",
     "description": "Generic webhook connector for Shopware 6 with presets for ERPNext, n8n, and custom endpoints",
-    "version": "1.0.1",
+    "version": "1.1.0",
     "type": "shopware-platform-plugin",
     "license": "MIT",
     "authors": [

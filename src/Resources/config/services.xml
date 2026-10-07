@@ -9,6 +9,13 @@
             <argument type="service" id="http_client"/>
             <argument type="service" id="Shopware\Core\System\SystemConfig\SystemConfigService"/>
             <argument type="service" id="logger"/>
+            <argument type="service" id="Symfony\Component\Messenger\MessageBusInterface"/>
+        </service>
+
+        <!-- Message Queue: asynchrone Zustellung -->
+        <service id="ShopwareWebhookConnector\MessageQueue\WebhookMessageHandler">
+            <argument type="service" id="ShopwareWebhookConnector\Service\WebhookService"/>
+            <tag name="messenger.message_handler"/>
         </service>
 
         <!-- Installer -->

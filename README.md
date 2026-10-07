@@ -112,20 +112,45 @@ https://your-n8n.com/webhook/your-webhook-id
 }
 ```
 
+## Security
+
+- **HTTPS only**: the webhook URL must use `https://`. Plain `http://` is accepted only for `localhost` / `127.0.0.1` during development. Other URLs are rejected and logged.
+- **Always configure a secret**: without a secret *no* signature header is sent (for all presets). Your receiver should reject unsigned requests.
+- **Asynchronous delivery** (default): webhooks are queued via the Shopware message queue and sent by the worker, so checkout, login and admin requests never wait for your ERP. Make sure a worker is running (admin worker or `bin/console messenger:consume async`). If you disable it, exactly one synchronous attempt is made without retries.
+- **Replay protection**: the signed payload contains a `timestamp`. Reject requests whose timestamp is older than a few minutes (see below) and, if needed, de-duplicate on `orderId` + `event`.
+- Response bodies from your endpoint are logged truncated to 500 characters.
+
 ## Signature Verification
 
-All webhooks are signed using HMAC-SHA256. To verify:
+All webhooks are signed using HMAC-SHA256 over the raw request body when a secret is configured. Verify the signature **and** the timestamp:
 
 ```php
 $payload = file_get_contents('php://input');
 $signature = $_SERVER['HTTP_X_SHOPWARE_SIGNATURE'] ?? '';
 $secret = 'your-webhook-secret';
 
+if ($signature === '') {
+    http_response_code(401); // unsigned request – reject
+    exit;
+}
+
 $expectedSignature = hash_hmac('sha256', $payload, $secret);
 
-if (hash_equals($expectedSignature, $signature)) {
-    // Valid signature
+if (!hash_equals($expectedSignature, $signature)) {
+    http_response_code(401);
+    exit;
 }
+
+// Replay protection: payload timestamp must be recent (ERPNext/custom: unix time, n8n: meta.timestamp ISO-8601)
+$data = json_decode($payload, true);
+$timestamp = $data['timestamp'] ?? strtotime($data['meta']['timestamp'] ?? '') ?: 0;
+
+if (abs(time() - (int) $timestamp) > 300) {
+    http_response_code(401); // older than 5 minutes – possible replay
+    exit;
+}
+
+// Valid request
 ```
 
 ### Python Example
@@ -133,14 +158,18 @@ if (hash_equals($expectedSignature, $signature)) {
 ```python
 import hmac
 import hashlib
+import json
+import time
 
-def verify_signature(payload: bytes, signature: str, secret: str) -> bool:
-    expected = hmac.new(
-        secret.encode(),
-        payload,
-        hashlib.sha256
-    ).hexdigest()
-    return hmac.compare_digest(expected, signature)
+def verify_webhook(payload: bytes, signature: str, secret: str, max_age: int = 300) -> bool:
+    if not signature:
+        return False  # unsigned request
+    expected = hmac.new(secret.encode(), payload, hashlib.sha256).hexdigest()
+    if not hmac.compare_digest(expected, signature):
+        return False
+    data = json.loads(payload)
+    timestamp = int(data.get("timestamp", 0))
+    return abs(time.time() - timestamp) <= max_age  # replay protection
 ```
 
 ## Checkout Custom Fields
@@ -158,9 +187,10 @@ When enabled, the following custom fields are added to orders:
 
 ### Webhooks not being sent
 
-1. Check that the webhook URL is configured
+1. Check that the webhook URL is configured and uses `https://`
 2. Verify the events you want are enabled
-3. Check the Shopware logs at `var/log/`
+3. Make sure the message queue worker is running (`bin/console messenger:consume async` or the admin worker), or disable "Send asynchronously"
+4. Check the Shopware logs at `var/log/`
 
 ### Signature verification fails
 
@@ -170,7 +200,7 @@ When enabled, the following custom fields are added to orders:
 
 ### Retries not working
 
-The plugin uses exponential backoff:
+Retries only apply to asynchronous delivery. The plugin uses exponential backoff:
 - 1st retry: `retryDelay` ms
 - 2nd retry: `retryDelay * 2` ms
 - 3rd retry: `retryDelay * 4` ms
