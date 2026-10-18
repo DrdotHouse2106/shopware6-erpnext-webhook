@@ -221,6 +221,12 @@ bin/console plugin:refresh
 bin/console plugin:install --activate ShopwareWebhookConnector
 ```
 
+## Support the project
+
+If this project helps you, a small donation is very welcome:
+
+[![Donate via PayPal](https://img.shields.io/badge/Donate-PayPal-0070ba?logo=paypal&logoColor=white)](https://paypal.me/DrdotHouse)
+
 ## License
 
 MIT License - see [LICENSE](LICENSE) for details.
