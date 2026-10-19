@@ -1,5 +1,7 @@
 # Shopware 6 Webhook Connector
 
+[![Buy me a coffee](https://img.shields.io/badge/☕_Buy_me_a_coffee-PayPal-0070ba?style=for-the-badge&logo=paypal&logoColor=white)](https://paypal.me/DrdotHouse)
+
 A generic webhook connector plugin for Shopware 6 with presets for ERPNext, n8n, and custom endpoints.
 
 ## Features
